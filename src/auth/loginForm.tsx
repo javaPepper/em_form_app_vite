@@ -4,7 +4,7 @@ export function LoginForm() {
       <div className='formWrapper'>
         <div className='logoWrapper'></div>
         <div className='formArea'>
-          <h1 className='header'>Login</h1>
+          <h1 className='header'></h1>
           <form className='form'>
             <div className='textInputWrapper'>
               <label form='inputName' className='inputLabel'>
@@ -27,8 +27,8 @@ export function LoginForm() {
                   className='passwordInput'
                 />
                 <img
+                  src="../src/assets/show-password.svg"
                   alt='hidePassword'
-                  src="#"
                   className='passwordIcon'
                 />
               </div>
@@ -37,7 +37,7 @@ export function LoginForm() {
           </form>
         </div>
         <img
-          src="#"
+          src="../src/assets/close-icon.svg"
           alt='close'
           className='closeIcon'
           />
