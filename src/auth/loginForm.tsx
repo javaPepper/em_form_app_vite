@@ -1,9 +1,15 @@
-import { useState } from "react";
-import { useFormik } from "formik";
+import { useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 export function LoginForm() {
   const [isClosed, setClosed] = useState<boolean>(false);
   const [isChanged, setChanged] = useState<boolean>(false);
+
+  interface Values {
+    email: string;
+    password: string;
+  }
 
   const handleChangeVisibilty = () => {
     setChanged(!isChanged);
@@ -13,29 +19,45 @@ export function LoginForm() {
     setClosed(true);
   };
 
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('required'),
+    password: Yup.string().min(8, 'Minimum 8 symbols'),
+  });
+
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-    onSubmit: (values, { setSubmitting }) => {
-      fetch('https://example.com')
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      setClosed(true)
+      fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify(values as Values),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
         .then((res: Response) => {
-          if(res.ok) {
-            console.log(values);
+          if (!res.ok) {
+            throw new Error('Server failure');
           }
-            console.log(res);
+          return res.json();
+        })
+        .then((data: Values) => {
+          console.log(`Succeeded: ${data}`);
+          alert('Your data delivered successfully')
         })
         .catch((err: Error) => {
-          alert(err.message);
-        })
-      setSubmitting(false);
+          console.error(`Error: ${err.message}`);
+        });
     },
   });
 
   return (
     <div className='loginForm'>
-      <div className={!isClosed ? "formWrapper" : "closed"}>
+      <div className={!isClosed ? 'formWrapper' : 'closed'}>
         <div className='logoWrapper'></div>
         <div className='formArea'>
           <h1 className='header'></h1>
@@ -52,6 +74,9 @@ export function LoginForm() {
                 onBlur={formik.handleBlur}
                 defaultValue={formik.values.email}
               />
+              {formik.errors.email &&
+                formik.touched.email &&
+                formik.errors.email}
             </div>
             <div className='textInputWrapper'>
               <label htmlFor='password' className='inputLabel'>
@@ -59,7 +84,7 @@ export function LoginForm() {
               </label>
               <div className='passwordWrapper'>
                 <input
-                  type={isChanged ? "text" : "password"}
+                  type={isChanged ? 'text' : 'password'}
                   id='password'
                   className='password'
                   onChange={formik.handleChange}
@@ -69,22 +94,31 @@ export function LoginForm() {
                 <img
                   src={
                     isChanged
-                      ? "../src/assets/hide-password.svg"
-                      : "../src/assets/show-password.svg"
+                      ? '../src/assets/hide-password.svg'
+                      : '../src/assets/show-password.svg'
                   }
                   alt='showPassword'
                   className='passwordIcon'
                   onClick={handleChangeVisibilty}
                 />
               </div>
+              {formik.errors.password &&
+                formik.touched.password &&
+                formik.errors.password}
             </div>
-            <button
-              className='button'
-              type='submit'
-              disabled={formik.isSubmitting}
-            >
-              I'm in
-            </button>
+            {formik.isValid ? (
+              <button
+                className='button'
+                type='submit'
+                disabled={!(formik.isValid && formik.touched)}
+              >
+                I'm in
+              </button>
+            ) : (
+              <button className='buttonDisabled' type='submit'>
+                I'm in
+              </button>
+            )}
           </form>
         </div>
         <img

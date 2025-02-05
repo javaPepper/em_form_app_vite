@@ -101,7 +101,7 @@
   height: 10px;
 }
 
-.button {
+.button, .buttonDisabled {
   padding: 16px 56px;
   background: #2f52e0;
   border-radius: 8px;
@@ -112,6 +112,10 @@
   font-size: 16px;
   line-height: 20px;
   color: #ffffff;
+}
+
+.buttonDisabled {
+  opacity: 0.6;
 }
 
 .closeIcon {
