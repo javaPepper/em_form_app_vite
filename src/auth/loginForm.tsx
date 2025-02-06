@@ -94,8 +94,8 @@ export function LoginForm() {
                 <img
                   src={
                     isChanged
-                      ? '../src/assets/hide-password.svg'
-                      : '../src/assets/show-password.svg'
+                      ? '../src/assets/hide-password.png'
+                      : '../src/assets/show-password.png'
                   }
                   alt='showPassword'
                   className='passwordIcon'
@@ -122,7 +122,7 @@ export function LoginForm() {
           </form>
         </div>
         <img
-          src='../src/assets/close-icon.svg'
+          src='../src/assets/close-icon.png'
           alt='close'
           className='closeIcon'
           onClick={handleCloseForm}
