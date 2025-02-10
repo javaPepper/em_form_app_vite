@@ -32,7 +32,7 @@
 .logoWrapper {
   width: 50%;
   height: 100%;
-  background: url("../assets/login-img.png");
+  background: url(../assets/login-img.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -95,10 +95,18 @@
   width: 100%;
 }
 
-.passwordIcon {
+.passwordIconShow {
+  cursor: pointer;
+  width: 25px;
+  height: 15px;
+  background: url(../assets/show-password.png);
+}
+
+.passwordIconHide {
   cursor: pointer;
   width: 20px;
   height: 10px;
+  background: url(../assets/hide-password.png);
 }
 
 .button, .buttonDisabled {
@@ -125,4 +133,5 @@
   top: 24px;
   right: 24px;
   cursor: pointer;
+  background: url(../assets/close-icon.png);
 }

@@ -91,16 +91,11 @@ export function LoginForm() {
                   onBlur={formik.handleBlur}
                   defaultValue={formik.values.password}
                 />
-                <img
-                  src={
-                    isChanged
-                      ? '../src/assets/hide-password.png'
-                      : '../src/assets/show-password.png'
-                  }
-                  alt='showPassword'
-                  className='passwordIcon'
+                <div
+                  className={isChanged ? 'passwordIconHide' : 'passwordIconShow'}
                   onClick={handleChangeVisibilty}
-                />
+                  >
+                </div>
               </div>
               {formik.errors.password &&
                 formik.touched.password &&
@@ -121,12 +116,11 @@ export function LoginForm() {
             )}
           </form>
         </div>
-        <img
-          src='../src/assets/close-icon.png'
-          alt='close'
-          className='closeIcon'
-          onClick={handleCloseForm}
-        />
+        <div
+        className='closeIcon'
+        onClick={handleCloseForm}
+        >
+        </div>
       </div>
     </div>
   );
